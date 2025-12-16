@@ -6,15 +6,12 @@
 
 ```mermaid
 graph TD
-    ISP[ISP / WAN] -->|ether1<br>DHCP Client| Router[<b>NazNetLabs-Router</b><br>MikroTik RB750Gr3]
+    ISP[ISP / WAN] -->|ether1<br>DHCP Client| Router[<b>NazNetLabs-Router</b><br>MikroTik CHRv7.20.5]
     
     Router -->|ether2<br>10.10.0.1/24| MGT[<b>Top-MGT Dept</b><br>50 Mbps<br>Unrestricted]
     Router -->|ether3<br>10.10.10.1/24| MKT[<b>MKT Dept</b><br>30 Mbps<br>Blocked: FB, YT]
     Router -->|ether4<br>10.10.20.1/24| HR[<b>HR Dept</b><br>10 Mbps<br>Blocked: FB, YT]
     Router -->|ether5<br>10.10.30.1/24| FIN[<b>FIN Dept</b><br>10 Mbps<br>Blocked: FB, YT]
-
-    style Router fill:#f9f,stroke:#333,stroke-width:2px
-    style ISP fill:#eee,stroke:#333,stroke-dasharray: 5 5
 ```
 
 ### Access Control Requirements
