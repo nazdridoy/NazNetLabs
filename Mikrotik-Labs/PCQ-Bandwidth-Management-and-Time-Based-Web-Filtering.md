@@ -35,9 +35,32 @@ Copy and paste this script into the MikroTik terminal.
 
 Copy and paste this entire script into your MikroTik terminal.
 
-```routeros
+```bash
 # ============================================================
 # MIKROTIK ROUTER CONFIGURATION
+# ============================================================
+#
+# MIT License
+#
+# Copyright (c) 2025 nazDridoy
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 # ============================================================
 
 # ------------------------------------------------------------
@@ -348,48 +371,48 @@ Total WAN: 100 Mbps
 
 ### System Time
 
-```routeros
+```bash
 /system clock print
 /system ntp client print
 ```
 
 ### Interface Configuration
 
-```routeros
+```bash
 /ip address print
 ```
 
 ### Mangle Rules
 
-```routeros
+```bash
 /ip firewall mangle print
 /ip firewall mangle print stats
 ```
 
 ### Queue Tree
 
-```routeros
+```bash
 /queue tree print
 /queue tree monitor Top-MGT_Download
 ```
 
 ### Firewall Filter
 
-```routeros
+```bash
 /ip firewall filter print
 /ip firewall filter print stats
 ```
 
 ### DNS Static Entries
 
-```routeros
+```bash
 /ip dns static print
 /put [:resolve youtube.com]
 ```
 
 ### NAT Rules
 
-```routeros
+```bash
 /ip firewall nat print where dst-port=53
 ```
 
@@ -405,7 +428,7 @@ Total WAN: 100 Mbps
 2. Run bandwidth test simultaneously from all departments
 3. Monitor queue tree statistics
 
-```routeros
+```bash
 /queue tree print stats
 ```
 
@@ -423,7 +446,7 @@ Total WAN: 100 Mbps
 2. Start download on all clients simultaneously
 3. Monitor individual client speeds
 
-```routeros
+```bash
 /queue tree monitor MKT_Download
 ```
 
@@ -462,7 +485,7 @@ curl -v https://facebook.com
 
 Monitor on router:
 
-```routeros
+```bash
 # Check DNS static entries
 /ip dns static print
 
@@ -486,7 +509,7 @@ curl -v https://facebook.com
 
 **Objective**: Verify connections are properly marked
 
-```routeros
+```bash
 # View all marked connections
 /ip firewall connection print where connection-mark!=""
 
@@ -521,7 +544,7 @@ curl -v https://facebook.com
 
 ### Real-time Monitoring Dashboard
 
-```routeros
+```bash
 # Monitor all queues simultaneously (run in separate terminals)
 /queue tree monitor Top-MGT_Download
 /queue tree monitor MKT_Download
@@ -531,7 +554,7 @@ curl -v https://facebook.com
 
 ### Daily Traffic Statistics
 
-```routeros
+```bash
 # View total traffic per queue
 /queue tree print stats
 
@@ -544,7 +567,7 @@ curl -v https://facebook.com
 
 ### Check Top Talkers
 
-```routeros
+```bash
 # View most active connections
 /ip firewall connection print where bytes>1000000
 
@@ -558,7 +581,7 @@ curl -v https://facebook.com
 
 ### Additional Recommended Rules
 
-```routeros
+```bash
 # Protect router from WAN
 /ip firewall filter
 add chain=input in-interface=ether1 connection-state=established,related action=accept \
@@ -580,7 +603,7 @@ add topics=firewall action=memory
 
 ### Backup Configuration
 
-```routeros
+```bash
 # Export configuration to file
 /export file=mikrotik-backup-2025-12-15
 
@@ -597,7 +620,7 @@ add topics=firewall action=memory
 
 Allow temporary speed bursts for better user experience:
 
-```routeros
+```bash
 /queue tree
 # Modify existing queues to add burst
 set [find name="MKT_Download"] burst-limit=50M burst-threshold=25M burst-time=10s
@@ -606,7 +629,7 @@ set [find name="MKT_Download"] burst-limit=50M burst-threshold=25M burst-time=10
 
 ### Option 2: Add QoS Priority for VoIP/Video Calls
 
-```routeros
+```bash
 # Mark VoIP traffic (example for SIP/RTP)
 /ip firewall mangle
 add chain=prerouting protocol=udp dst-port=5060-5061 action=mark-packet \
@@ -622,7 +645,7 @@ add name="VoIP_Priority" parent=Total_Download packet-mark=VoIP_pkt \
 
 ### Option 3: Add Logging for Blocked Access
 
-```routeros
+```bash
 # Log all blocked social media attempts
 /ip firewall filter
 # Add this BEFORE the drop rules
@@ -642,7 +665,7 @@ add chain=forward src-address-list=Restricted_Depts dst-port=443 \
 
 For more granular control, enable web proxy:
 
-```routeros
+```bash
 /ip proxy
 set enabled=yes port=8080 cache-administrator=admin@example.com
 
@@ -802,19 +825,19 @@ Client (MKT)                        MikroTik Router                    Internet
    ```
 
 2. **Reset to factory defaults** (optional, if needed)
-   ```routeros
+   ```bash
    /system reset-configuration no-defaults=yes skip-backup=yes
    ```
 
 3. **Copy and paste the complete configuration script** from this document
 
 4. **Verify time is correct**
-   ```routeros
+   ```bash
    /system clock print
    ```
 
 5. **Test internet connectivity**
-   ```routeros
+   ```bash
    /ping google.com count=5
    ```
 
@@ -823,7 +846,7 @@ Client (MKT)                        MikroTik Router                    Internet
 ### For Existing Router
 
 1. **Backup current configuration**
-   ```routeros
+   ```bash
    /export file=backup-before-changes
    ```
 
@@ -858,7 +881,7 @@ Client (MKT)                        MikroTik Router                    Internet
 
 Social media services may change domains/IPs. Update as needed:
 
-```routeros
+```bash
 # Add new domains to DNS static
 /ip dns static
 add name=new-facebook-domain.com type=NXDOMAIN comment="Block New Facebook Domain"
@@ -869,7 +892,7 @@ add name=new-facebook-domain.com type=NXDOMAIN comment="Block New Facebook Domai
 
 > [!IMPORTANT]
 > Always flush DNS cache after adding new NXDOMAIN entries:
-> ```routeros
+> ```bash
 > /ip dns cache flush
 > ```
 
@@ -884,7 +907,7 @@ add name=new-facebook-domain.com type=NXDOMAIN comment="Block New Facebook Domai
 
 ### Useful Commands Reference
 
-```routeros
+```bash
 # Quick system info
 /system resource print
 
@@ -940,7 +963,7 @@ This configuration provides:
 
 > [!WARNING]
 > **Security Warning**: Change default admin password immediately:
-> ```routeros
+> ```bash
 > /user set admin password=YourStrongPasswordHere
 > ```
 
