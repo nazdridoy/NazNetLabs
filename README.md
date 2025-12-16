@@ -5,17 +5,17 @@ A collection of network labs, configurations, and experiments covering various p
 ## Current Labs
 
 ### MikroTik
-- **[Mikrotik-Labs](./Mikrotik-Labs/PCQ-Bandwidth-Management-and-Time-Based-Web-Filtering.md)**: Configuration scripts for bandwidth management, firewall rules, VLANs, and general router setup.
+- **[Mikrotik-Labs](./Mikrotik-Labs)**: Comprehensive RouterOS configurations including bandwidth management, firewalling, and access control.
 
 ## Roadmap
 
 Planned additions for future labs:
 
-- **Juniper**: Junos OS routing and switching.
-- **FortiGate**: Firewall policies and VPN configurations.
-- **Linux**: Networking services (DNS, DHCP) and automation.
-- **Windows**: Server administration and Active Directory.
-- **Cisco**: IOS/IOS-XE switching and routing.
+- **[Juniper](./Juniper)**: Junos OS routing and switching.
+- **[FortiGate](./FortiGate)**: Firewall policies and VPN configurations.
+- **[Linux](./Linux)**: Networking services (DNS, DHCP) and automation.
+- **[Windows](./Windows)**: Server administration and Active Directory.
+- **[Cisco](./Cisco)**: IOS/IOS-XE switching and routing.
 
 ## Usage
 
@@ -25,4 +25,4 @@ git clone https://github.com/nazdridoy/NazNetLabs.git
 
 ## License
 
-[MIT](LICENSE)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

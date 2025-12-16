@@ -4,13 +4,18 @@
 
 ### Network Topology
 
-| Interface | Purpose | Bandwidth | Network |
-|-----------|---------|-----------|---------|
-| **ether1** | WAN | 100 Mbps | DHCP from ISP |
-| **ether2** | Top-MGT Department | 50 Mbps | 10.10.0.0/24 |
-| **ether3** | MKT Department | 30 Mbps | 10.10.10.0/24 |
-| **ether4** | HR Department | 10 Mbps | 10.10.20.0/24 |
-| **ether5** | FIN Department | 10 Mbps | 10.10.30.0/24 |
+```mermaid
+graph TD
+    ISP[ISP / WAN] -->|ether1<br>DHCP Client| Router[<b>NazNetLabs-Router</b><br>MikroTik RB750Gr3]
+    
+    Router -->|ether2<br>10.10.0.1/24| MGT[<b>Top-MGT Dept</b><br>50 Mbps<br>Unrestricted]
+    Router -->|ether3<br>10.10.10.1/24| MKT[<b>MKT Dept</b><br>30 Mbps<br>Blocked: FB, YT]
+    Router -->|ether4<br>10.10.20.1/24| HR[<b>HR Dept</b><br>10 Mbps<br>Blocked: FB, YT]
+    Router -->|ether5<br>10.10.30.1/24| FIN[<b>FIN Dept</b><br>10 Mbps<br>Blocked: FB, YT]
+
+    style Router fill:#f9f,stroke:#333,stroke-width:2px
+    style ISP fill:#eee,stroke:#333,stroke-dasharray: 5 5
+```
 
 ### Access Control Requirements
 
@@ -40,6 +45,11 @@ Copy and paste this entire script into your MikroTik terminal.
 # MIKROTIK ROUTER CONFIGURATION
 # ============================================================
 #
+# Author: nazDridoy
+# Source: https://github.com/nazdridoy/NazNetLabs/blob/main/Mikrotik-Labs/PCQ-Bandwidth-Management-and-Time-Based-Web-Filtering.md
+# License: MIT License
+# Date: 2025-12-16
+#
 # MIT License
 #
 # Copyright (c) 2025 nazDridoy
@@ -63,13 +73,30 @@ Copy and paste this entire script into your MikroTik terminal.
 # SOFTWARE.
 # ============================================================
 
+# ============================================================
+# 0. GLOBAL VARIABLES (MODIFIABLE)
+# ============================================================
+
+# Interfaces
+:global wanInterface "ether1"
+:global mgtInterface "ether2"
+:global mktInterface "ether3"
+:global hrInterface "ether4"
+:global finInterface "ether5"
+
+# Gateway IPs (Router IPs)
+:global mgtGateway "10.10.0.1/24"
+:global mktGateway "10.10.10.1/24"
+:global hrGateway "10.10.20.1/24"
+:global finGateway "10.10.30.1/24"
+
 # ------------------------------------------------------------
 # 1. SYSTEM CONFIGURATION
 # ------------------------------------------------------------
 
 # Set router identity
 /system identity
-set name=MKT-NAZ-LAB-1
+set name=NazNetLabs-Router
 
 # Configure timezone (adjust for your location)
 /system clock
@@ -85,7 +112,7 @@ set enabled=yes servers=pool.ntp.org,time.google.com
 
 # Configure WAN interface to get IP from ISP via DHCP
 /ip dhcp-client
-add interface=ether1 disabled=no comment="WAN DHCP Client"
+add interface=$wanInterface disabled=no comment="WAN DHCP Client"
 
 # If you need static IP instead, use this:
 # /ip address
@@ -98,10 +125,10 @@ add interface=ether1 disabled=no comment="WAN DHCP Client"
 # ------------------------------------------------------------
 
 /ip address
-add address=10.10.0.1/24 interface=ether2 comment="Top-MGT Gateway" network=10.10.0.0
-add address=10.10.10.1/24 interface=ether3 comment="MKT Gateway" network=10.10.10.0
-add address=10.10.20.1/24 interface=ether4 comment="HR Gateway" network=10.10.20.0
-add address=10.10.30.1/24 interface=ether5 comment="FIN Gateway" network=10.10.30.0
+add address=$mgtGateway interface=$mgtInterface comment="Top-MGT Gateway" network=10.10.0.0
+add address=$mktGateway interface=$mktInterface comment="MKT Gateway" network=10.10.10.0
+add address=$hrGateway interface=$hrInterface comment="HR Gateway" network=10.10.20.0
+add address=$finGateway interface=$finInterface comment="FIN Gateway" network=10.10.30.0
 
 
 # ------------------------------------------------------------
@@ -116,7 +143,7 @@ set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes
 # ------------------------------------------------------------
 
 /ip firewall nat
-add chain=srcnat out-interface=ether1 action=masquerade comment="Internet Access NAT"
+add chain=srcnat out-interface=$wanInterface action=masquerade comment="Internet Access NAT"
 
 # ------------------------------------------------------------
 # 6. DHCP SERVER CONFIGURATION
@@ -127,7 +154,7 @@ add chain=srcnat out-interface=ether1 action=masquerade comment="Internet Access
 add name=MGT-pool ranges=10.10.0.100-10.10.0.200
 
 /ip dhcp-server
-add name=MGT-dhcp interface=ether2 address-pool=MGT-pool disabled=no
+add name=MGT-dhcp interface=$mgtInterface address-pool=MGT-pool disabled=no
 
 /ip dhcp-server network
 add address=10.10.0.0/24 gateway=10.10.0.1 dns-server=8.8.8.8,8.8.4.4 comment="Top-MGT DHCP Network"
@@ -137,7 +164,7 @@ add address=10.10.0.0/24 gateway=10.10.0.1 dns-server=8.8.8.8,8.8.4.4 comment="T
 add name=MKT-pool ranges=10.10.10.100-10.10.10.200
 
 /ip dhcp-server
-add name=MKT-dhcp interface=ether3 address-pool=MKT-pool disabled=no
+add name=MKT-dhcp interface=$mktInterface address-pool=MKT-pool disabled=no
 
 /ip dhcp-server network
 add address=10.10.10.0/24 gateway=10.10.10.1 dns-server=8.8.8.8,8.8.4.4 comment="MKT DHCP Network"
@@ -147,7 +174,7 @@ add address=10.10.10.0/24 gateway=10.10.10.1 dns-server=8.8.8.8,8.8.4.4 comment=
 add name=HR-pool ranges=10.10.20.100-10.10.20.200
 
 /ip dhcp-server
-add name=HR-dhcp interface=ether4 address-pool=HR-pool disabled=no
+add name=HR-dhcp interface=$hrInterface address-pool=HR-pool disabled=no
 
 /ip dhcp-server network
 add address=10.10.20.0/24 gateway=10.10.20.1 dns-server=8.8.8.8,8.8.4.4 comment="HR DHCP Network"
@@ -157,7 +184,7 @@ add address=10.10.20.0/24 gateway=10.10.20.1 dns-server=8.8.8.8,8.8.4.4 comment=
 add name=FIN-pool ranges=10.10.30.100-10.10.30.200
 
 /ip dhcp-server
-add name=FIN-dhcp interface=ether5 address-pool=FIN-pool disabled=no
+add name=FIN-dhcp interface=$finInterface address-pool=FIN-pool disabled=no
 
 /ip dhcp-server network
 add address=10.10.30.0/24 gateway=10.10.30.1 dns-server=8.8.8.8,8.8.4.4 comment="FIN DHCP Network"
@@ -167,20 +194,20 @@ add address=10.10.30.0/24 gateway=10.10.30.1 dns-server=8.8.8.8,8.8.4.4 comment=
 # ------------------------------------------------------------
 
 /ip firewall mangle
-# Top-MGT Department (ether2 - 10.10.0.0/24)
-add chain=prerouting in-interface=ether2 action=mark-connection new-connection-mark=MGT_conn passthrough=yes comment="Mark MGT Connections"
+# Top-MGT Department
+add chain=prerouting in-interface=$mgtInterface action=mark-connection new-connection-mark=MGT_conn passthrough=yes comment="Mark MGT Connections"
 add chain=prerouting connection-mark=MGT_conn action=mark-packet new-packet-mark=MGT_pkt passthrough=no comment="Mark MGT Packets"
 
-# MKT Department (ether3 - 10.10.10.0/24)
-add chain=prerouting in-interface=ether3 action=mark-connection new-connection-mark=MKT_conn passthrough=yes comment="Mark MKT Connections"
+# MKT Department
+add chain=prerouting in-interface=$mktInterface action=mark-connection new-connection-mark=MKT_conn passthrough=yes comment="Mark MKT Connections"
 add chain=prerouting connection-mark=MKT_conn action=mark-packet new-packet-mark=MKT_pkt passthrough=no comment="Mark MKT Packets"
 
-# HR Department (ether4 - 10.10.20.0/24)
-add chain=prerouting in-interface=ether4 action=mark-connection new-connection-mark=HR_conn passthrough=yes comment="Mark HR Connections"
+# HR Department
+add chain=prerouting in-interface=$hrInterface action=mark-connection new-connection-mark=HR_conn passthrough=yes comment="Mark HR Connections"
 add chain=prerouting connection-mark=HR_conn action=mark-packet new-packet-mark=HR_pkt passthrough=no comment="Mark HR Packets"
 
-# FIN Department (ether5 - 10.10.30.0/24)
-add chain=prerouting in-interface=ether5 action=mark-connection new-connection-mark=FIN_conn passthrough=yes comment="Mark FIN Connections"
+# FIN Department
+add chain=prerouting in-interface=$finInterface action=mark-connection new-connection-mark=FIN_conn passthrough=yes comment="Mark FIN Connections"
 add chain=prerouting connection-mark=FIN_conn action=mark-packet new-packet-mark=FIN_pkt passthrough=no comment="Mark FIN Packets"
 
 # ------------------------------------------------------------
@@ -198,7 +225,7 @@ add name="PCQ_upload" kind=pcq pcq-rate=0 pcq-classifier=src-address
 # Parent Queues
 /queue tree
 add name="Total_Download" parent=global max-limit=100M comment="Total WAN Download Bandwidth"
-add name="Total_Upload" parent=ether1 max-limit=100M comment="Total WAN Upload Bandwidth"
+add name="Total_Upload" parent=$wanInterface max-limit=100M comment="Total WAN Upload Bandwidth"
 
 # Top-MGT Department Queues (50 Mbps)
 add name="Top-MGT_Download" parent=Total_Download packet-mark=MGT_pkt queue=PCQ_download limit-at=50M max-limit=50M priority=1 comment="MGT Download: 50M guaranteed"

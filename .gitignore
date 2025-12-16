@@ -1,0 +1,17 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Editor directories
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# MikroTik
+*.rsc
+*.backup
