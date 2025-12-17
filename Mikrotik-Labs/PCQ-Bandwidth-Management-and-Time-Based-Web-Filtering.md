@@ -122,10 +122,10 @@ add interface=$wanInterface disabled=no comment="WAN DHCP Client"
 # ------------------------------------------------------------
 
 /ip address
-add address=$mgtGateway interface=$mgtInterface comment="Top-MGT Gateway" network=10.10.0.0
-add address=$mktGateway interface=$mktInterface comment="MKT Gateway" network=10.10.10.0
-add address=$hrGateway interface=$hrInterface comment="HR Gateway" network=10.10.20.0
-add address=$finGateway interface=$finInterface comment="FIN Gateway" network=10.10.30.0
+add address=$mgtGateway interface=$mgtInterface comment="Top-MGT Gateway"
+add address=$mktGateway interface=$mktInterface comment="MKT Gateway"
+add address=$hrGateway interface=$hrInterface comment="HR Gateway"
+add address=$finGateway interface=$finInterface comment="FIN Gateway"
 
 
 # ------------------------------------------------------------

@@ -11,11 +11,11 @@ A collection of network labs, configurations, and experiments covering various p
 
 Planned additions for future labs:
 
-- **[Juniper](./Juniper)**: Junos OS routing and switching.
-- **[FortiGate](./FortiGate)**: Firewall policies and VPN configurations.
+- **[Cisco](./Cisco)**: IOS/IOS-XE switching and routing.
 - **[Linux](./Linux)**: Networking services (DNS, DHCP) and automation.
 - **[Windows](./Windows)**: Server administration and Active Directory.
-- **[Cisco](./Cisco)**: IOS/IOS-XE switching and routing.
+- **[Juniper](./Juniper)**: Junos OS routing and switching.
+- **[FortiGate](./FortiGate)**: Firewall policies and VPN configurations.
 
 ## Usage
 
