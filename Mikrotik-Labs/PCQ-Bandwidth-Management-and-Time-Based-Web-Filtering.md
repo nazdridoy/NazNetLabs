@@ -35,8 +35,6 @@ graph TD
 
 Copy and paste this script into the MikroTik terminal.
 
-Copy and paste this entire script into your MikroTik terminal.
-
 ```bash
 # ============================================================
 # MIKROTIK ROUTER CONFIGURATION
@@ -762,36 +760,86 @@ Use this checklist to verify your setup:
 
 ## Understanding the Configuration
 
-### How PCQ Works
+### Traffic Marking (Mangle)
 
-**PCQ (Per Connection Queue)** automatically creates sub-queues for each connection:
+The mangle rules implement a **connection-based marking strategy** using a single packet mark per department for both upload and download traffic.
+
+#### Connection Mark vs Packet Mark
+
+| Mark Type | Scope | Purpose |
+|-----------|-------|---------|
+| Connection Mark (`MKT_conn`) | Per TCP/UDP session | Identifies which department initiated the connection |
+| Packet Mark (`MKT_pkt`) | Per packet | Used by Queue Tree to apply bandwidth limits |
+
+#### Marking Process
+
+1. **Connection Identification**: Traffic entering from a LAN interface (e.g., `ether3`) is marked with a connection mark (`MKT_conn`).
+2. **Bidirectional Propagation**: MikroTik's connection tracking ensures the connection mark applies to **both directions** (outgoing requests and incoming replies belong to the same connection).
+3. **Packet Stamping**: All packets within a marked connection receive the corresponding packet mark (`MKT_pkt`).
+
+#### Single Mark Design Rationale
+
+Separate upload/download packet marks are not required. Direction differentiation is handled at the Queue Tree level via:
+- **Parent queue attachment** (interface-based filtering)
+- **PCQ classifiers** (address-based sub-queue creation)
+
+This reduces mangle rule count and lowers CPU overhead.
+
+---
+
+### Bandwidth Management (Queue Tree)
+
+Queue Tree implements hierarchical bandwidth allocation using PCQ (Per Connection Queue) for fair distribution among users.
+
+#### Parent Queue Configuration
+
+| Queue | Parent | Traffic Scope |
+|-------|--------|---------------|
+| `Total_Download` | `global` | All traffic passing through the router |
+| `Total_Upload` | `$wanInterface` | Only traffic exiting via WAN interface |
+
+**Design Note**: `Total_Upload` uses interface-based parent (`$wanInterface`) to ensure only outbound WAN traffic is processed. This prevents download traffic from consuming upload bandwidth quota and enables asymmetric bandwidth limits (e.g., 50M down / 10M up) if required.
+
+#### PCQ Classifier Behavior
+
+PCQ dynamically creates sub-queues based on the classifier:
+
+| Queue Type | Classifier | Sub-Queue Key | Effect |
+|------------|------------|---------------|--------|
+| Download | `dst-address` | Client IP (destination) | Fair bandwidth per receiving user |
+| Upload | `src-address` | Client IP (source) | Fair bandwidth per sending user |
+
+**Example**: MKT department with 30 Mbps allocation and 3 active users:
 
 ```
-MKT Department (30 Mbps total)
-├── User 1 (10.10.10.101) → Gets 10 Mbps
-├── User 2 (10.10.10.102) → Gets 10 Mbps
-└── User 3 (10.10.10.103) → Gets 10 Mbps
+MKT_Download (30 Mbps, pcq-classifier=dst-address)
+├── 10.10.10.101 → 10 Mbps
+├── 10.10.10.102 → 10 Mbps
+└── 10.10.10.103 → 10 Mbps
 ```
 
-- **Classifier**: `dst-address` for download, `src-address` for upload
-- **Dynamic**: Automatically adjusts as users connect/disconnect
-- **Fair**: Each active user gets equal share
+PCQ automatically redistributes bandwidth as users connect/disconnect.
 
-### How Queue Tree Works
-
-**Queue Tree** creates hierarchical bandwidth limits:
+#### Traffic Flow Summary
 
 ```
-Total_Download (100M)
-├── Top-MGT_Download (50M) → Uses PCQ to split among users
-├── MKT_Download (30M) → Uses PCQ to split among users
-├── HR_Download (10M) → Uses PCQ to split among users
-└── FIN_Download (10M) → Uses PCQ to split among users
+                              MANGLE                    QUEUE TREE
+                              ══════                    ══════════
+LAN Client                                              
+    │                                                   
+    ├─► Packet enters router                            
+    │   └─► in-interface match                          
+    │       └─► mark-connection (MKT_conn)              
+    │           └─► mark-packet (MKT_pkt)               
+    │                                                   
+    ├─► Upload (LAN → WAN)                              
+    │   └─► Exits via $wanInterface ─────────────────► Total_Upload
+    │                                                   └─► MKT_Upload (PCQ src-address)
+    │                                                   
+    └─► Download (WAN → LAN)                            
+        └─► Passes through router ───────────────────► Total_Download
+                                                        └─► MKT_Download (PCQ dst-address)
 ```
-
-- **limit-at**: Guaranteed minimum bandwidth (CIR)
-- **max-limit**: Maximum allowed bandwidth (MIR)
-- **priority**: Lower number = higher priority (1-8)
 
 ### How DNS-Based Blocking Works
 
