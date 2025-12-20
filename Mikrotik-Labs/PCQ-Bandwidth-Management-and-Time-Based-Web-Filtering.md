@@ -6,7 +6,7 @@
 
 ```mermaid
 graph TD
-    ISP[ISP / WAN] -->|ether1<br>DHCP Client| Router[<b>NazNetLabs-Router</b><br>MikroTik CHRv7.20.5]
+    ISP[<b>ISP / WAN</b><br>100 Mbps<br>] -->|ether1<br>DHCP Client| Router[<b>NazNetLabs-Router</b><br>MikroTik CHRv7.20.5]
     
     Router -->|ether2<br>10.10.0.1/24| MGT[<b>Top-MGT Dept</b><br>50 Mbps<br>Unrestricted]
     Router -->|ether3<br>10.10.10.1/24| MKT[<b>MKT Dept</b><br>30 Mbps<br>Blocked: FB, YT]
