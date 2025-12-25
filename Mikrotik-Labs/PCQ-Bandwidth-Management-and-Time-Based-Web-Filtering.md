@@ -14,6 +14,11 @@ graph TD
     Router -->|ether5<br>10.10.30.1/24| FIN[<b>FIN Dept</b><br>10 Mbps<br>Blocked: FB, YT]
 ```
 
+#### LAB DEMO
+
+<img width="1879" height="1016" alt="2025-12-25_18-10-59" src="https://github.com/user-attachments/assets/fd40b1bd-ba2e-4a73-bd67-1586b03ce9e9" />
+
+
 ### Access Control Requirements
 
 - **Time**: 9:00 AM to 5:00 PM (Everyday)
@@ -1042,3 +1047,4 @@ This configuration provides:
 ---
 
 For questions or issues, refer to the Troubleshooting section or MikroTik community forums.
+
