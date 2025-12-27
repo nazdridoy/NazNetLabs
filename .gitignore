@@ -15,3 +15,7 @@ Thumbs.db
 # MikroTik
 *.rsc
 *.backup
+
+# NazNetLabs Specific
+naz-ref-ignored/
+**/naz-ref-ignored/
