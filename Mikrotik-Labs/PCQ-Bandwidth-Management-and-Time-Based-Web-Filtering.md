@@ -16,7 +16,7 @@ graph TD
 
 #### LAB DEMO
 
-<img width="1879" height="1016" alt="2025-12-25_18-10-59" src="https://github.com/user-attachments/assets/fd40b1bd-ba2e-4a73-bd67-1586b03ce9e9" />
+![LAB DEMO](assets/PCQ-Bandwidth-Management-and-Time-Based-Web-Filtering-DEMO.webp)
 
 
 ### Access Control Requirements
