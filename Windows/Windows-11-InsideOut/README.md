@@ -9,3 +9,4 @@ This directory contains practical instructions for Windows 11 administration and
 - [Chapter 6: Using and Managing Built-in Windows Apps](Chapter6-Using-and-Managing-Built-in-Windows-Apps.md)
 - [Chapter 8: Managing Local and Cloud Storage](Chapter8-Managing-Local-and-Cloud-Storage.md)
 - [Chapter 9: Using File Explorer](Chapter9-Using-File-Explorer.md)
+- [Chapter 10: Managing User Accounts, Passwords, and Credentials](Chapter10-Managing-User-Accounts.md)
