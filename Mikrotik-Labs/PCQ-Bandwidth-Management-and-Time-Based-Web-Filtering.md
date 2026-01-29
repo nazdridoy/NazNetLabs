@@ -16,7 +16,10 @@ graph TD
 
 #### LAB DEMO
 
-![LAB DEMO](assets/PCQ-Bandwidth-Management-and-Time-Based-Web-Filtering-DEMO.webp)
+   <figure>
+    <img src="assets/PCQ-Bandwidth-Management-and-Time-Based-Web-Filtering-DEMO.webp" alt="LAB DEMO" >
+    <figcaption align="left"><i>Figure 1: Lab topology and bandwidth distribution demo.</i></figcaption>
+   </figure>
 
 
 ### Access Control Requirements

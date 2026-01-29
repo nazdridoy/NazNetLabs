@@ -14,8 +14,10 @@ When you add a new hard disk or SSD to your PC, Windows won't recognize it until
    - Right-click the **Start** button and select **Disk Management**.
    - Alternatively, press **Win + R**, type `diskmgmt.msc`, and press **Enter**.
 
-   ![Disk Management showing an uninitialized disk](assets/ch8/8.1-A.webp)
-   *Figure 1: Disk Management window showing a new, uninitialized disk.*
+   <figure>
+    <img src="assets/ch8/8.1-A.webp" alt="Disk Management showing an uninitialized disk" >
+    <figcaption align="left"><i>Figure 1: Disk Management window showing a new, uninitialized disk.</i></figcaption>
+   </figure>
 
 2. **Bringing a Disk Online**:
    - If the disk is showing as "Offline," right-click the disk name (e.g., Disk 1) and select **Online**. This is common for disks moved from other systems.
@@ -25,8 +27,10 @@ When you add a new hard disk or SSD to your PC, Windows won't recognize it until
    - In the dialog box, ensure the correct disk is selected.
    - For modern Windows 11 systems, pick **GPT (GUID Partition Table)** for better compatibility and support for drives over 2TB. Use **MBR** only for legacy systems.
 
-   ![Initialize Disk dialog box showing MBR and GPT options](assets/ch8/8.1-B.webp)
-   *Figure 2: Selecting the partition style in the Initialize Disk dialog.*
+   <figure>
+    <img src="assets/ch8/8.1-B.webp" alt="Initialize Disk dialog box showing MBR and GPT options" >
+    <figcaption align="left"><i>Figure 2: Selecting the partition style in the Initialize Disk dialog.</i></figcaption>
+   </figure>
 
 4. **Creating a Simple Volume**:
    - Right-click the black "Unallocated" space on the disk and select **New Simple Volume**.
@@ -36,15 +40,19 @@ When you add a new hard disk or SSD to your PC, Windows won't recognize it until
      - **Format**: Select **NTFS** for the file system and give it a **Volume label** (e.g., "Data" or "Storage").
      - Ensure **Perform a quick format** is checked.
 
-   ![New Simple Volume Wizard format options](assets/ch8/8.1-C.webp)
-   *Figure 3: Configuring file system and format options in the volume wizard.*
+   <figure>
+    <img src="assets/ch8/8.1-C.webp" alt="New Simple Volume Wizard format options" >
+    <figcaption align="left"><i>Figure 3: Configuring file system and format options in the volume wizard.</i></figcaption>
+   </figure>
 
 5. **Verifying the New Drive**:
    - Open **File Explorer** and click **This PC**. Your new drive should appear with the letter and label you assigned.
    - In Disk Management, the disk should now show a status of **Healthy (Basic Data Partition)**.
 
-   ![The new drive showing as Healthy in Disk Management](assets/ch8/8.1-D.webp)
-   *Figure 4: Verification of the healthy, formatted partition in Disk Management.*
+   <figure>
+    <img src="assets/ch8/8.1-D.webp" alt="The new drive showing as Healthy in Disk Management" >
+    <figcaption align="left"><i>Figure 4: Verification of the healthy, formatted partition in Disk Management.</i></figcaption>
+   </figure>
 
 ---
 
@@ -59,8 +67,10 @@ Disk Management lets you resize partitions, change drive letters, and re-format 
    - Windows will calculate how much space can be taken away.
    - Enter the amount to shrink in MB and click **Shrink**. The freed space will appear as "Unallocated."
 
-   ![Shrink Volume dialog with available shrink space](assets/ch8/8.2-A.webp)
-   *Figure 5: Calculating and entering the amount of space to shrink from a volume.*
+   <figure>
+    <img src="assets/ch8/8.2-A.webp" alt="Shrink Volume dialog with available shrink space" >
+    <figcaption align="left"><i>Figure 5: Calculating and entering the amount of space to shrink from a volume.</i></figcaption>
+   </figure>
 
 2. **Extending a Volume**:
    - You can only extend a volume if there is unallocated space immediately to its right.
@@ -72,16 +82,20 @@ Disk Management lets you resize partitions, change drive letters, and re-format 
    - Choose **NTFS** for Windows internal drives or **exFAT** for USB drives that need to work with Macs.
    - Click **OK** to wipe the data and reset the file system.
 
-   ![Format dialog box with file system selection](assets/ch8/8.2-B.webp)
-   *Figure 6: Choosing the file system and perform a quick format.*
+   <figure>
+    <img src="assets/ch8/8.2-B.webp" alt="Format dialog box with file system selection" >
+    <figcaption align="left"><i>Figure 6: Choosing the file system and perform a quick format.</i></figcaption>
+   </figure>
 
 4. **Changing Drive Letters**:
    - Right-click a volume and select **Change Drive Letter and Paths**.
    - Click **Change**, select a new letter from the list, and click **OK**.
    - Warning: Programs that rely on the old letter (like shortcuts or games) may stop working until you update their paths.
 
-   ![Change Drive Letter dialog box](assets/ch8/8.2-C.webp)
-   *Figure 7: Reassigning a different drive letter to an existing volume.*
+   <figure>
+    <img src="assets/ch8/8.2-C.webp" alt="Change Drive Letter dialog box" >
+    <figcaption align="left"><i>Figure 7: Reassigning a different drive letter to an existing volume.</i></figcaption>
+   </figure>
 
 ---
 
@@ -96,23 +110,29 @@ A virtual hard disk (VHD or VHDX) is a disk stored inside a single file. You can
    - Click **Browse** to choose where to save the file.
    - Set the size and select **VHDX** (more modern and resilient) and **Dynamically expanding** (only uses space as you add files).
 
-   ![Create and Attach Virtual Hard Disk dialog](assets/ch8/8.3-A.webp)
-   *Figure 8: Setting the location, size, and format for a new virtual disk.*
+   <figure>
+    <img src="assets/ch8/8.3-A.webp" alt="Create and Attach Virtual Hard Disk dialog" >
+    <figcaption align="left"><i>Figure 8: Setting the location, size, and format for a new virtual disk.</i></figcaption>
+   </figure>
 
 2. **Initializing and Formatting**:
    - The VHD appears as a new disk at the bottom of Disk Management.
    - Right-click the disk name > **Initialize Disk**.
    - Right-click the unallocated space > **New Simple Volume**.
 
-   ![New VHD appearing as uninitialized in Disk Management](assets/ch8/8.3-B.webp)
-   *Figure 9: The virtual disk as it first appears, ready for initialization.*
+   <figure>
+    <img src="assets/ch8/8.3-B.webp" alt="New VHD appearing as uninitialized in Disk Management" >
+    <figcaption align="left"><i>Figure 9: The virtual disk as it first appears, ready for initialization.</i></figcaption>
+   </figure>
 
 3. **Using and Detaching**:
    - The VHD now acts like a physical drive in File Explorer.
    - To "remove" it, right-click the disk in Disk Management and select **Detach VHD**. The file remains on your PC, but the drive disappears from Explorer.
 
-   ![Detach VHD option in the right-click menu](assets/ch8/8.3-C.webp)
-   *Figure 10: Detaching the VHD when it's no longer needed.*
+   <figure>
+    <img src="assets/ch8/8.3-C.webp" alt="Detach VHD option in the right-click menu" >
+    <figcaption align="left"><i>Figure 10: Detaching the VHD when it's no longer needed.</i></figcaption>
+   </figure>
 
 4. **Attaching on Another PC**:
    - Copy the `.vhdx` file to a USB drive and plug it into another Windows PC.
@@ -134,15 +154,19 @@ Instead of assigning a drive letter like D: or E:, you can mount a volume direct
    - Click **Add**.
    - Select **Mount in the following empty NTFS folder** and click **Browse** to select the folder you just created.
 
-   ![Add Drive Letter or Path dialog showing the mount folder option](assets/ch8/8.4-A.webp)
-   *Figure 11: Mapping a volume to a folder path instead of a drive letter.*
+   <figure>
+    <img src="assets/ch8/8.4-A.webp" alt="Add Drive Letter or Path dialog showing the mount folder option" >
+    <figcaption align="left"><i>Figure 11: Mapping a volume to a folder path instead of a drive letter.</i></figcaption>
+   </figure>
 
 3. **Verifying the Mount**:
    - Navigate to the folder in File Explorer. You'll notice the folder icon has a small drive overlay on it.
    - Files you save here are actually being stored on the secondary volume, even though the path looks like it's on your C: drive.
 
-   ![A folder showing the drive icon overlay in File Explorer](assets/ch8/8.4-B.webp)
-   *Figure 12: A mounted folder appearing in File Explorer with its unique icon.*
+   <figure>
+    <img src="assets/ch8/8.4-B.webp" alt="A folder showing the drive icon overlay in File Explorer" >
+    <figcaption align="left"><i>Figure 12: A mounted folder appearing in File Explorer with its unique icon.</i></figcaption>
+   </figure>
 
 ---
 
@@ -157,8 +181,10 @@ OneDrive is built into Windows 11 and syncs your files to the cloud. You get 5GB
    - Enter your Microsoft account email and password.
    - Follow the prompts to finish the setup. Your OneDrive folder will be created at `C:\Users\[YourName]\OneDrive`.
 
-   ![OneDrive welcome and sign-in screen](assets/ch8/8.5-A.webp)
-   *Figure 13: Starting the OneDrive setup process.*
+   <figure>
+    <img src="assets/ch8/8.5-A.webp" alt="OneDrive welcome and sign-in screen" >
+    <figcaption align="left"><i>Figure 13: Starting the OneDrive setup process.</i></figcaption>
+   </figure>
 
 2. **Managing Files On-Demand**:
    - Open your OneDrive folder in File Explorer. Notice the icons in the **Status** column:
@@ -167,8 +193,10 @@ OneDrive is built into Windows 11 and syncs your files to the cloud. You get 5GB
    - To save space, right-click a file or folder and select **Free up space**.
    - To ensure a file is always offline, right-click it and select **Always keep on this device**.
 
-   ![File Explorer showing cloud and green checkmark status icons](assets/ch8/8.5-B.webp)
-   *Figure 14: Understanding the various sync status icons in File Explorer.*
+   <figure>
+    <img src="assets/ch8/8.5-B.webp" alt="File Explorer showing cloud and green checkmark status icons" >
+    <figcaption align="left"><i>Figure 14: Understanding the various sync status icons in File Explorer.</i></figcaption>
+   </figure>
 
 3. **Pausing Sync**:
    - If you're on a slow connection, click the OneDrive icon in the tray, click the **Settings** (gear), and select **Pause syncing**. You can pause for 2, 8, or 24 hours.
@@ -185,8 +213,10 @@ Personal Vault is a protected folder within OneDrive that requires extra verific
    - Open your OneDrive folder and double-click the **Personal Vault** icon.
    - Follow the prompt to verify your identity. If it's your first time, Windows will guide you through the setup.
 
-   ![Initial verification prompt for Personal Vault](assets/ch8/8.6-A.webp)
-   *Figure 15: Verifying your identity to unlock the Personal Vault.*
+   <figure>
+    <img src="assets/ch8/8.6-A.webp" alt="Initial verification prompt for Personal Vault" >
+    <figcaption align="left"><i>Figure 15: Verifying your identity to unlock the Personal Vault.</i></figcaption>
+   </figure>
 
 2. **Adding Important Files**:
    - Move sensitive items like ID scans or tax documents into the vault.
@@ -196,8 +226,10 @@ Personal Vault is a protected folder within OneDrive that requires extra verific
    - Right-click the Personal Vault icon in OneDrive and select **Lock Personal Vault**.
    - Alternatively, click the OneDrive icon in the system tray and select **Lock Personal Vault**.
 
-   ![The OneDrive tray menu with the "Lock Personal Vault" option](assets/ch8/8.6-B.webp)
-   *Figure 16: Manually locking your sensitive data.*
+   <figure>
+    <img src="assets/ch8/8.6-B.webp" alt="The OneDrive tray menu with the &quot;Lock Personal Vault&quot; option" >
+    <figcaption align="left"><i>Figure 16: Manually locking your sensitive data.</i></figcaption>
+   </figure>
 
 ---
 
@@ -210,8 +242,10 @@ Windows can automatically back up your Desktop, Documents, and Pictures folders 
 1. **Accessing Backup Settings**:
    - Click the OneDrive icon in the tray, select the **Settings** gear, and go to **Sync and backup > Manage backup**.
 
-   ![OneDrive Settings showing the Manage backup interface](assets/ch8/8.7-A.webp)
-   *Figure 17: Accessing the backup configuration panel in OneDrive settings.*
+   <figure>
+    <img src="assets/ch8/8.7-A.webp" alt="OneDrive Settings showing the Manage backup interface" >
+    <figcaption align="left"><i>Figure 17: Accessing the backup configuration panel in OneDrive settings.</i></figcaption>
+   </figure>
 
 2. **Choosing Folders to Sync**:
    - Toggle the switches for **Desktop**, **Documents**, and **Pictures**.
@@ -237,13 +271,15 @@ If your main drive is small, you can tell Windows to save new apps, documents, a
    - Use the dropdown menus to change the drive for new apps, documents, music, photos, and movies.
    - Click **Apply** after each change.
 
-   ![The "Where new content is saved" page in Settings](assets/ch8/8.8-A.webp)
-   *Figure 18: Changing default storage drives for various file types.*
+   <figure>
+    <img src="assets/ch8/8.8-A.webp" alt="The &quot;Where new content is saved&quot; page in Settings" >
+    <figcaption align="left"><i>Figure 18: Changing default storage drives for various file types.</i></figcaption>
+   </figure>
 
 3. **Moving Existing Folders**:
    - To move your existing Documents folder, open File Explorer and right-click **Documents** under "This PC."
    - Select **Properties**, go to the **Location** tab, and click **Move**.
-   - Choose a folder on your secondary drive and click **Select Folder**. Windows will ask if you want to move all existing files there—click **Yes**.
+   - Choose a folder on your secondary drive and click **Select Folder**. Windows will ask if you want to move all existing files there; click **Yes**.
 
 ---
 
@@ -262,8 +298,10 @@ Maintaining your drives ensures your PC stays fast and your data remains safe. W
    - In the Storage settings page, click **Cleanup recommendations**. 
    - Windows will list large files, unused apps, and temporary data you can safely delete to free up space.
 
-   ![Cleanup recommendations page showing removable files](assets/ch8/8.9-A.webp)
-   *Figure 19: Freeing up space using Windows' built-in cleanup suggestions.*
+   <figure>
+    <img src="assets/ch8/8.9-A.webp" alt="Cleanup recommendations page showing removable files" >
+    <figcaption align="left"><i>Figure 19: Freeing up space using Windows' built-in cleanup suggestions.</i></figcaption>
+   </figure>
 
 3. **Optimizing and Defragmenting**:
    - Search for **Defragment and Optimize Drives** in the Start menu.
@@ -273,5 +311,7 @@ Maintaining your drives ensures your PC stays fast and your data remains safe. W
    - Right-click a drive in File Explorer and select **Properties**.
    - Go to the **Tools** tab and click **Check** under "Error checking." Windows will scan the drive for file system corruption.
 
-   ![Tools tab in Drive Properties with the Error checking option](assets/ch8/8.9-B.webp)
-   *Figure 20: Initiating a manual check for drive errors.*
+   <figure>
+    <img src="assets/ch8/8.9-B.webp" alt="Tools tab in Drive Properties with the Error checking option" >
+    <figcaption align="left"><i>Figure 20: Initiating a manual check for drive errors.</i></figcaption>
+   </figure>

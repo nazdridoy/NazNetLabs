@@ -21,8 +21,10 @@ System apps are core Windows components located in protected system folders. The
    Get-AppxPackage -PackageTypeFilter Main | ? { $_.SignatureKind -eq "System" } | Sort Name | Format-Table Name, InstallLocation
    ```
 
-   ![PowerShell output listing system apps](assets/ch6/6.1-A.webp)
-   *Figure 1: Using PowerShell to list verified system applications.*
+   <figure>
+    <img src="assets/ch6/6.1-A.webp" alt="PowerShell output listing system apps" >
+    <figcaption align="left"><i>Figure 1: Using PowerShell to list verified system applications.</i></figcaption>
+   </figure>
 
 ---
 
@@ -39,8 +41,10 @@ Provisioned apps are pre-installed packages that are automatically added to ever
    Get-AppxProvisionedPackage -Online | Format-Table DisplayName, PackageName
    ```
 
-   ![PowerShell output listing provisioned apps](assets/ch6/6.2-A.webp)
-   *Figure 2: Viewing apps that are provisioned for all new user profiles.*
+   <figure>
+    <img src="assets/ch6/6.2-A.webp" alt="PowerShell output listing provisioned apps" >
+    <figcaption align="left"><i>Figure 2: Viewing apps that are provisioned for all new user profiles.</i></figcaption>
+   </figure>
 
 ---
 
@@ -59,8 +63,10 @@ The new Outlook app replaces the legacy Mail and Calendar apps. It provides a mo
    - Use the **Focused** tab for important messages and **Other** for everything else.
    - Click **New mail** at the top left to start writing a message.
 
-   ![Outlook app inbox and compose window](assets/ch6/6.3-A.webp)
-   *Figure 3: The Outlook app inbox and message composition view.*
+   <figure>
+    <img src="assets/ch6/6.3-A.webp" alt="Outlook app inbox and compose window" >
+    <figcaption align="left"><i>Figure 3: The Outlook app inbox and message composition view.</i></figcaption>
+   </figure>
 
 ---
 
@@ -77,8 +83,10 @@ The calendar is now built directly into the Outlook app, making it easier to swi
    - Click on any date in the calendar or click the **New event** button at the top left.
    - Fill in the event title, set the time, and click **Save**.
 
-   ![New event dialog in the Outlook Calendar](assets/ch6/6.4-A.webp)
-   *Figure 4: Creating a new appointment in the modern Outlook Calendar.*
+   <figure>
+    <img src="assets/ch6/6.4-A.webp" alt="New event dialog in the Outlook Calendar" >
+    <figcaption align="left"><i>Figure 4: Creating a new appointment in the modern Outlook Calendar.</i></figcaption>
+   </figure>
 
 ---
 
@@ -97,8 +105,10 @@ Use the People app to manage contacts and To Do to keep track of your daily task
    - Click **Add a task** at the bottom to quickly jot something down.
    - Use **My Day** to focus on specific tasks for the current 24 hours.
 
-   ![To Do app showing task lists and My Day](assets/ch6/6.5-A.webp)
-   *Figure 5: Organizing tasks within the Microsoft To Do app.*
+   <figure>
+    <img src="assets/ch6/6.5-A.webp" alt="To Do app showing task lists and My Day" >
+    <figcaption align="left"><i>Figure 5: Organizing tasks within the Microsoft To Do app.</i></figcaption>
+   </figure>
 
 ---
 
@@ -127,8 +137,10 @@ Windows includes built-in tools for enjoying and editing your media files withou
    - Open an image in the **Photos** app.
    - Click the **Edit image** icon at the top. You can crop, rotate, and adjust lighting or color from here.
 
-   ![Photos app editing tools](assets/ch6/6.7-A.webp)
-   *Figure 6: Cropping and adjusting an image in the Photos app.*
+   <figure>
+    <img src="assets/ch6/6.7-A.webp" alt="Photos app editing tools" >
+    <figcaption align="left"><i>Figure 6: Cropping and adjusting an image in the Photos app.</i></figcaption>
+   </figure>
 
 3. **Editing Video with Clipchamp**:
    - Open **Clipchamp** from the Start menu.
@@ -150,6 +162,8 @@ The Snipping Tool is the most versatile way to capture what's on your screen.
 2. **Editing Snips**:
    - After capturing, the Snipping Tool window opens. Use the pens and highlighters to mark up the image.
 
-   ![Snipping Tool active on screen](assets/ch6/6.8-A.webp)
-   *Figure 7: Using the Snipping Tool to capture and annotate the screen.*
+   <figure>
+    <img src="assets/ch6/6.8-A.webp" alt="Snipping Tool active on screen" >
+    <figcaption align="left"><i>Figure 7: Using the Snipping Tool to capture and annotate the screen.</i></figcaption>
+   </figure>
 

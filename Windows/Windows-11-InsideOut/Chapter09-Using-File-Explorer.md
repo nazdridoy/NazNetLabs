@@ -12,21 +12,27 @@ Zip files are the standard for bundling and sharing files. Windows 11 handles th
    - Select the files you want to bundle.
    - Right-click the selection and choose **Compress to ZIP file**.
    - Type a name for the archive and hit Enter.
-   ![Compressing files to ZIP](assets/ch9/9.1-A.webp)
-   *Figure 1: Creating a zip file directly from the context menu.*
+   <figure>
+    <img src="assets/ch9/9.1-A.webp" alt="Compressing files to ZIP" >
+    <figcaption align="left"><i>Figure 1: Creating a zip file directly from the context menu.</i></figcaption>
+   </figure>
 
 2. **Extracting files**:
    - Right-click a `.zip` file and select **Extract All**.
    - The wizard asks for a destination (default is the current folder). Click **Extract**.
    - Keep the checkbox marked to see your files immediately.
-   ![Extraction dialog](assets/ch9/9.1-B.webp)
-   *Figure 2: unpacking files using the native extraction tool.*
+   <figure>
+    <img src="assets/ch9/9.1-B.webp" alt="Extraction dialog" >
+    <figcaption align="left"><i>Figure 2: unpacking files using the native extraction tool.</i></figcaption>
+   </figure>
 
 3. **Browsing inside Archives**:
    - Double-click a zip file to open it like a regular folder.
    - This "peek" view lets you drag single files out without extracting the entire package.
-   ![Browsing inside a ZIP](assets/ch9/9.1-C.webp)
-   *Figure 3: Viewing zip contents before extraction.*
+   <figure>
+    <img src="assets/ch9/9.1-C.webp" alt="Browsing inside a ZIP" >
+    <figcaption align="left"><i>Figure 3: Viewing zip contents before extraction.</i></figcaption>
+   </figure>
 
 ---
 
@@ -38,21 +44,27 @@ Libraries are virtual folders that merge content from multiple locations (like y
    - In File Explorer, right-click an empty space in the left **Navigation Pane**.
    - Select **Show libraries**. They will appear at the bottom of the list.
    - *Alternative*: Click the dots **(...)** in the command bar > **Options** > **View** > Check **Show libraries**.
-   ![Enabling libraries](assets/ch9/9.2-A.webp)
-   *Figure 4: Toggling visibility for the Libraries node.*
+   <figure>
+    <img src="assets/ch9/9.2-A.webp" alt="Enabling libraries" >
+    <figcaption align="left"><i>Figure 4: Toggling visibility for the Libraries node.</i></figcaption>
+   </figure>
 
 2. **Creating a custom Library**:
    - Right-click the **Libraries** header in the left pane > **New** > **Library**.
    - Name it "Project Archives" or "Merged Media".
-   ![New library in pane](assets/ch9/9.2-B.webp)
-   *Figure 5: Adding a custom collection.*
+   <figure>
+    <img src="assets/ch9/9.2-B.webp" alt="New library in pane" >
+    <figcaption align="left"><i>Figure 5: Adding a custom collection.</i></figcaption>
+   </figure>
 
 3. **Adding folders**:
    - Right-click your new library > **Properties**.
    - Click **Add...** to link folders from different drives.
    - Use the "Optimize for" dropdown to tell Windows if it should show thumbnails (Pictures) or details (Documents).
-   ![Library properties](assets/ch9/9.2-C.webp)
-   *Figure 6: Aggregating folders from multiple sources.*
+   <figure>
+    <img src="assets/ch9/9.2-C.webp" alt="Library properties" >
+    <figcaption align="left"><i>Figure 6: Aggregating folders from multiple sources.</i></figcaption>
+   </figure>
 
 ---
 
@@ -64,22 +76,28 @@ Moving files seems basic, but doing it wrong creates duplicate copies or "ghost"
    - Select your files.
    - Click the **Scissors (Cut)** icon in the top command bar (or press **Ctrl + X**).
    - Navigate to the new folder and click the **Paste** icon.
-   ![Cut and Paste icons](assets/ch9/9.3-A.webp)
-   *Figure 7: Modern cut/paste icons in the command bar.*
+   <figure>
+    <img src="assets/ch9/9.3-A.webp" alt="Cut and Paste icons" >
+    <figcaption align="left"><i>Figure 7: Modern cut/paste icons in the command bar.</i></figcaption>
+   </figure>
 
 2. **The Right-Click Drag trick**:
    - **Right-click and drag** a file to a new location.
    - When you drop it, a menu pops up asking: **Move here** vs **Copy here**.
    - This is the only way to be 100% sure of what will happen.
-   ![Right-click drag menu](assets/ch9/9.3-B.webp)
-   *Figure 8: The infallible "Move vs Copy" menu.*
+   <figure>
+    <img src="assets/ch9/9.3-B.webp" alt="Right-click drag menu" >
+    <figcaption align="left"><i>Figure 8: The infallible "Move vs Copy" menu.</i></figcaption>
+   </figure>
 
 3. **Dragging between Tabs**:
    - Open a second tab by clicking the **+** in the title bar.
    - Drag a file from your active tab and hover it over the **title** of the destination tab.
    - Wait for the tab to switch, then drop the file.
-   ![Dragging between tabs](assets/ch9/9.3-C.webp)
-   *Figure 9: Moving files across tabs.*
+   <figure>
+    <img src="assets/ch9/9.3-C.webp" alt="Dragging between tabs" >
+    <figcaption align="left"><i>Figure 9: Moving files across tabs.</i></figcaption>
+   </figure>
 
 ---
 
@@ -90,21 +108,27 @@ OneDrive isn't just a background app; it's built into the explorer window. You c
 1. **Generating Share Links**:
    - Right-click a synced file > **Share** (look for the OneDrive icon next to Share).
    - Set permissions (e.g., "Anyone with the link") and click **Copy link**.
-   ![OneDrive share dialog](assets/ch9/9.4-A.webp)
-   *Figure 10: Creating a cloud share link directly from Explorer.*
+   <figure>
+    <img src="assets/ch9/9.4-A.webp" alt="OneDrive share dialog" >
+    <figcaption align="left"><i>Figure 10: Creating a cloud share link directly from Explorer.</i></figcaption>
+   </figure>
 
 2. **Restoring Previous Versions**:
    - Right-click a document > **Version History**.
    - You'll see a list of timestamps. Click the **three dots** on an older version to **Restore** or **Download** it.
    - Keep this in mind before you panic about overwriting a file.
-   ![Version history list](assets/ch9/9.4-B.webp)
-   *Figure 11: Accessing cloud backups of specific files.*
+   <figure>
+    <img src="assets/ch9/9.4-B.webp" alt="Version history list" >
+    <figcaption align="left"><i>Figure 11: Accessing cloud backups of specific files.</i></figcaption>
+   </figure>
 
 3. **Pinning Folders**:
    - Right-click a frequently used Cloud folder > **Pin to Quick access**.
    - It now lives at the top left of every window for instant access.
-   ![Pinned folder](assets/ch9/9.4-C.webp)
-   *Figure 12: Shortcut to cloud storage.*
+   <figure>
+    <img src="assets/ch9/9.4-C.webp" alt="Pinned folder" >
+    <figcaption align="left"><i>Figure 12: Shortcut to cloud storage.</i></figcaption>
+   </figure>
 
 ---
 
@@ -116,15 +140,19 @@ The Recycle Bin is your safety net. Unless you force-deleted (Shift+Del), your f
    - Open the **Recycle Bin** from the Desktop.
    - Select your file > Right-click > **Restore**.
    - It returns to its original folder immediately.
-   ![Restoring from Recycle Bin](assets/ch9/9.5-A.webp)
-   *Figure 13: Recovering accidental deletions.*
+   <figure>
+    <img src="assets/ch9/9.5-A.webp" alt="Restoring from Recycle Bin" >
+    <figcaption align="left"><i>Figure 13: Recovering accidental deletions.</i></figcaption>
+   </figure>
 
 2. **Managing Bin Size**:
    - Right-click Recycle Bin > **Properties**.
    - Limit the "Maximum size" if you're low on disk space.
    - Ensure "Display delete confirmation" is **ON** if you want a warning before deletion.
-   ![Recycle Bin properties](assets/ch9/9.5-B.webp)
-   *Figure 14: Setting storage limits.*
+   <figure>
+    <img src="assets/ch9/9.5-B.webp" alt="Recycle Bin properties" >
+    <figcaption align="left"><i>Figure 14: Setting storage limits.</i></figcaption>
+   </figure>
 
 ---
 
@@ -136,21 +164,27 @@ While OneDrive handles cloud versions, **File History** is the legacy tool for *
    - Connect an external USB drive.
    - Search specifically for "**File History**" in the Start Menu (it's a Control Panel applet).
    - Click **Turn on**.
-   ![File History enabled](assets/ch9/9.6-A.webp)
-   *Figure 15: The legacy Control Panel interface for backups.*
+   <figure>
+    <img src="assets/ch9/9.6-A.webp" alt="File History enabled" >
+    <figcaption align="left"><i>Figure 15: The legacy Control Panel interface for backups.</i></figcaption>
+   </figure>
 
 2. **Accessing Local Versions**:
    - Right-click a file > **Properties** > **Previous Versions** tab.
    - If File History is running, you'll see local snapshots here.
    - Select a date and click **Restore**.
-   ![Previous versions tab](assets/ch9/9.6-B.webp)
-   *Figure 16: Restoring from a local shadow copy.*
+   <figure>
+    <img src="assets/ch9/9.6-B.webp" alt="Previous versions tab" >
+    <figcaption align="left"><i>Figure 16: Restoring from a local shadow copy.</i></figcaption>
+   </figure>
 
 3. **Restoring a lost folder**:
    - If you deleted an entire folder, right-click the **Parent folder** > **Properties** > **Previous Versions**.
    - You can roll back the parent container to a time when the subfolder existed.
-   ![File History timeline](assets/ch9/9.6-C.webp)
-   *Figure 17: Recovering an entire directory structure.*
+   <figure>
+    <img src="assets/ch9/9.6-C.webp" alt="File History timeline" >
+    <figcaption align="left"><i>Figure 17: Recovering an entire directory structure.</i></figcaption>
+   </figure>
 
 ---
 
@@ -161,21 +195,27 @@ Default lists are fine for ten files. For ten thousand, you need these organizat
 1. **Grouping content**:
    - In the command bar, click **Sort** > **Group by** > **Type**.
    - This creates visual headers (Folders, Images, PDFs). You can collapse sections you don't need.
-   ![Grouped by type](assets/ch9/9.7-A.webp)
-   *Figure 18: Segmenting a messy folder.*
+   <figure>
+    <img src="assets/ch9/9.7-A.webp" alt="Grouped by type" >
+    <figcaption align="left"><i>Figure 18: Segmenting a messy folder.</i></figcaption>
+   </figure>
 
 2. **Filtering columns**:
    - Switch to **Details View** (View > Details).
    - Hover over the **Type** or **Date** column header. Click the small **arrow**.
    - Check the boxes to show only specific files (e.g., "Last Week").
-   ![Column filters](assets/ch9/9.7-B.webp)
-   *Figure 19: Filtering a list without searching.*
+   <figure>
+    <img src="assets/ch9/9.7-B.webp" alt="Column filters" >
+    <figcaption align="left"><i>Figure 19: Filtering a list without searching.</i></figcaption>
+   </figure>
 
 3. **Sorting**:
    - Sorting arranges the list; Grouping breaks it into chunks.
    - Use **Sort** > **Size** > **Descending** to find space-hogging files.
-   ![Sort menu options](assets/ch9/9.7-C.webp)
-   *Figure 20: Simple ordering options.*
+   <figure>
+    <img src="assets/ch9/9.7-C.webp" alt="Sort menu options" >
+    <figcaption align="left"><i>Figure 20: Simple ordering options.</i></figcaption>
+   </figure>
 
 ---
 
@@ -186,22 +226,28 @@ If you can't find a file you *know* is there, it's likely not indexed. Windows o
 1. **Opening Indexing Options**:
    - Press Start, type **Indexing Options**, and hit Enter.
    - This shows you exactly what Windows is "watching."
-   ![Indexing Options main](assets/ch9/9.8-A.webp)
-   *Figure 21: The search indexer control panel.*
+   <figure>
+    <img src="assets/ch9/9.8-A.webp" alt="Indexing Options main" >
+    <figcaption align="left"><i>Figure 21: The search indexer control panel.</i></figcaption>
+   </figure>
 
 2. **Adding locations**:
    - Click **Modify**.
    - Expand your drives and check any folder you want searchable (like `D:\Projects`).
    - Don't index the whole C: drive; it will slow down your PC.
-   ![Modify indexed locations](assets/ch9/9.8-B.webp)
-   *Figure 22: Adding custom folders to the index.*
+   <figure>
+    <img src="assets/ch9/9.8-B.webp" alt="Modify indexed locations" >
+    <figcaption align="left"><i>Figure 22: Adding custom folders to the index.</i></figcaption>
+   </figure>
 
 3. **Indexing File Contents**:
    - Go to **Advanced** > **File Types**.
    - Select "Index Properties and File Contents" for text-heavy formats like `.pdf` or `.docx`.
    - This lets you search for words *inside* the file, not just the filename.
-   ![Index file contents](assets/ch9/9.8-C.webp)
-   *Figure 23: Enabling deep content search.*
+   <figure>
+    <img src="assets/ch9/9.8-C.webp" alt="Index file contents" >
+    <figcaption align="left"><i>Figure 23: Enabling deep content search.</i></figcaption>
+   </figure>
 
 ---
 
@@ -213,18 +259,24 @@ If you can't find a file you *know* is there, it's likely not indexed. Windows o
    - Click the search box.
    - Type `kind:image` or `kind:document`.
    - Windows filters the view instantly.
-   ![Syntax search example](assets/ch9/9.9-A.webp)
-   *Figure 24: Using the kind: operator.*
+   <figure>
+    <img src="assets/ch9/9.9-A.webp" alt="Syntax search example" >
+    <figcaption align="left"><i>Figure 24: Using the kind: operator.</i></figcaption>
+   </figure>
 
 2. **Searching by Date**:
    - Type `date:today` or `date:thisweek`.
    - You can also specify years: `date:2024`.
-   ![Search results filtered](assets/ch9/9.9-B.webp)
-   *Figure 25: Filtering by time.*
+   <figure>
+    <img src="assets/ch9/9.9-B.webp" alt="Search results filtered" >
+    <figcaption align="left"><i>Figure 25: Filtering by time.</i></figcaption>
+   </figure>
 
 3. **Advanced Boolean Queries**:
    - Combine terms to narrow results: `report AND budget`.
    - Exclude terms: `budget NOT draft` (finds "budget" but hides "budget draft").
    - Find large files: `size:>100mb`.
-   ![Complex search query](assets/ch9/9.9-C.webp)
-   *Figure 26: Building a complex query string.*
+   <figure>
+    <img src="assets/ch9/9.9-C.webp" alt="Complex search query" >
+    <figcaption align="left"><i>Figure 26: Building a complex query string.</i></figcaption>
+   </figure>
