@@ -10,3 +10,4 @@ This directory contains practical instructions for Windows 11 administration and
 - [Chapter 08: Managing Local and Cloud Storage](Chapter08-Managing-Local-and-Cloud-Storage.md)
 - [Chapter 09: Using File Explorer](Chapter09-Using-File-Explorer.md)
 - [Chapter 10: Managing User Accounts, Passwords, and Credentials](Chapter10-Managing-User-Accounts.md)
+- [Chapter 11: Configuring Windows Networks](Chapter11-Configuring-Windows-Networks.md)
