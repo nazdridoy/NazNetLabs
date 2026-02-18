@@ -2,6 +2,43 @@
 
 This chapter covers configuring Windows Server 2019 and MikroTik RouterOS to enable centralized user authentication using Active Directory credentials.
 
+### Topology Overview
+
+```mermaid
+graph TD
+    subgraph ClientSection ["Management Access"]
+        User([Admin User])
+    end
+
+    subgraph NetworkLayer ["Infrastructure Layer"]
+        CHR[[MikroTik CHR<br/>192.168.16.254]]
+    end
+
+    subgraph AuthLayer ["Identity & Policy Services"]
+        NPS[(SRV19-B / NPS<br/>192.168.16.101)]
+        DC[(SRV19-A / DC<br/>192.168.16.1)]
+    end
+
+    %% Communication Flow
+    User -- Login Request --> CHR
+    CHR -- "RADIUS Request<br/>(UDP 1812 / MS-CHAP-v2)" --> NPS
+    NPS -- "LDAP Auth Check" --> DC
+    DC -- "Auth Success" --> NPS
+    NPS -- "RADIUS Accept<br/>(VSA: Mikrotik-Group=full)" --> CHR
+    CHR -- "Full Admin Access" --> User
+
+    %% Styling
+    classDef client fill:none,stroke:#01579b,stroke-width:2px,color:#01579b
+    classDef router fill:none,stroke:#e65100,stroke-width:2px,color:#e65100
+    classDef server fill:none,stroke:#4a148c,stroke-width:2px,color:#4a148c
+    classDef subgraphStyle fill:none,stroke:#d1d1d1,stroke-dasharray: 5 5
+
+    class User client
+    class CHR router
+    class NPS,DC server
+    class ClientSection,NetworkLayer,AuthLayer subgraphStyle
+```
+
 ---
 
 ## Lab MISC-1.1: Preparing Active Directory & Installing NPS
