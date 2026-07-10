@@ -91,7 +91,7 @@ sudo vi /etc/named.conf
 
 ```text
 #
-# RHEL BIND Authoritative DNS Server — Main Configuration
+# RHEL BIND Authoritative DNS Server: Main Configuration
 # Domain: nhr.local | Server: ns1.nhr.local (192.168.1.10)
 # This file is the top-level entry point; it loads the three split
 # configuration files and defines global logging / statistics channels.
@@ -106,7 +106,7 @@ include "/etc/named/named.conf.local";
 # Optional: default localhost and broadcast zones shipped with BIND
 #include "/etc/named.rfc1912.zones";
 
-# Logging — write detailed query logs to a dedicated file instead of syslog
+# Logging: write detailed query logs to a dedicated file instead of syslog
 logging {
     channel query_log {
         # Log file location with log rotation (3 old copies, max 20 MB each)
@@ -122,7 +122,7 @@ logging {
     category config  { query_log; };   # Configuration parse/load events
 };
 
-# Statistics channel — exposes BIND metrics on 127.0.0.1:8053 for
+# Statistics channel: exposes BIND metrics on 127.0.0.1:8053 for
 # external monitoring tools (Nagios, Zabbix). Must be top-level, not
 # inside "options".
 statistics-channels {
@@ -138,7 +138,7 @@ sudo vi /etc/named/named.conf.options
 
 ```text
 #
-# RHEL BIND — Global Options and Access Controls
+# RHEL BIND: Global Options and Access Controls
 # Requirements covered:
 #   - Server setup: listen interfaces, directory paths
 #   - Security: restrict zone transfers (allow-transfer), access controls
@@ -147,51 +147,51 @@ sudo vi /etc/named/named.conf.options
 #
 
 options {
-    # Server Setup — Listening Interfaces
+    # Server Setup: Listening Interfaces
     # DNS listens on TCP and UDP port 53 by default.
     # Bind to the server's internal IP and localhost only.
     # Do NOT expose to 0.0.0.0 unless this server must face the public Internet.
     listen-on port 53 { 127.0.0.1; 192.168.1.10; };
     listen-on-v6 port 53 { ::1; };
 
-    # Server Setup — File Paths
+    # Server Setup: File Paths
     # "directory" is the base path used by relative paths in zone files.
     directory       "/var/named";
     dump-file       "/var/named/data/cache_dump.db";
     statistics-file "/var/named/data/named_stats.txt";
     memstatistics-file "/var/named/data/named_mem_stats.txt";
 
-    # Security — Access Controls
+    # Security: Access Controls
     # Only the local host and the internal corporate subnet (192.168.1.0/24)
     # are allowed to query this DNS server. All other sources are dropped.
     allow-query     { localhost; 192.168.1.0/24; };
 
-    # Security — Restrict Zone Transfers
+    # Security: Restrict Zone Transfers
     # By default, NO external host is permitted to perform a full AXFR zone
     # transfer. This prevents reconnaissance attacks that enumerate the
     # entire corporate DNS structure. Override per-zone with an ACL if a
     # secondary/slave nameserver (e.g., 192.168.1.15) is added later.
     allow-transfer  { none; };
 
-    # Forwarding — Upstream Public DNS Resolvers
+    # Forwarding: Upstream Public DNS Resolvers
     # Recursion is enabled so internal clients can resolve external names
     # (e.g., www.google.com). Queries for non-local zones are forwarded to
     # Google Public DNS instead of being resolved iteratively from the
     # root servers, which is faster for end users.
     recursion yes;
     forwarders {
-        8.8.8.8;      # Google Public DNS — primary
-        8.8.4.4;      # Google Public DNS — secondary
+        8.8.8.8;      # Google Public DNS: primary
+        8.8.4.4;      # Google Public DNS: secondary
     };
     forward only;    # Do NOT attempt iterative recursion if forwarders fail
 
-    # DNSSEC — keep BIND signing-aware for local zones.
+    # DNSSEC: keep BIND signing-aware for local zones.
     # Validation is disabled because forward only prevents BIND from
     # fetching the DNSSEC chain from root; 8.8.8.8 handles that upstream.
     dnssec-enable yes;
     dnssec-validation no;
 
-    # Security — Root Key Management
+    # Security: Root Key Management
     # Path to the built-in ISC root trust anchor (installed with bind package).
     bindkeys-file "/etc/named.root.key";
 
@@ -213,7 +213,7 @@ sudo vi /etc/named/named.conf.local
 
 ```text
 #
-# RHEL BIND — Local Zone Definitions and Overrides
+# RHEL BIND: Local Zone Definitions and Overrides
 # Requirements covered:
 #   - Forward Lookup Zone: nhr.local (A, MX, CNAME, NS, SOA records)
 #   - Reverse Lookup Zone: 1.168.192.in-addr.arpa (PTR records)
@@ -223,7 +223,7 @@ sudo vi /etc/named/named.conf.local
 #
 
 #============================================================================
-# FORWARD ZONE — nhr.local
+# FORWARD ZONE: nhr.local
 # Maps hostnames to IP addresses and provides mail routing.
 # Records (defined in /var/named/dynamic/nhr.local.zone):
 #   SOA, NS, A (ns1, client, www, mail), CNAME (ftp), MX
@@ -236,18 +236,18 @@ zone "nhr.local" IN {
     # The directory is chown'd to root:named with 770 perms.
     file "dynamic/nhr.local.zone";
 
-    # DNSSEC Zone Signing — Key Directory
+    # DNSSEC Zone Signing: Key Directory
     # Points to the directory holding the ZSK and KSK generated by
     # dnssec-keygen. Required for inline-signing to work.
     key-directory "/var/named/keys";
 
-    # DNSSEC Zone Signing — Enable Automatic Signing
+    # DNSSEC Zone Signing: Enable Automatic Signing
     # "inline-signing yes"   → BIND signs the zone in memory on reload
     # "auto-dnssec maintain" → BIND manages key rollover automatically
     inline-signing yes;
     auto-dnssec maintain;
 
-    # Security — Dynamic Updates (DDNS / DHCP integration)
+    # Security: Dynamic Updates (DDNS / DHCP integration)
     # Set to "none" for a static server. To allow a DHCP server to
     # automatically update DNS records, replace with the TSIG key name
     # generated in section 1.16 (e.g., allow-update { key dhcp-key; };).
@@ -261,7 +261,7 @@ zone "nhr.local" IN {
 # allow-transfer { secondary-dns; };
 
 #============================================================================
-# REVERSE ZONE — 1.168.192.in-addr.arpa
+# REVERSE ZONE: 1.168.192.in-addr.arpa
 # Maps IP addresses to hostnames (PTR records) for reverse DNS lookups.
 # This is used by services such as SMTP, SSH, and FTP for logging/verification.
 # Records (defined in /var/named/dynamic/nhr.local.rev):
@@ -300,7 +300,7 @@ sudo vi /var/named/dynamic/nhr.local.zone
 
 ```text
 ;
-; RHEL BIND — Forward Lookup Zone File
+; RHEL BIND: Forward Lookup Zone File
 ; File: /var/named/dynamic/nhr.local.zone
 ; Zone: nhr.local
 ; Requirements covered:
@@ -316,19 +316,19 @@ $TTL 86400
                 604800      ; Expire
                 86400 )     ; Minimum TTL
 
-; NS — authoritative nameservers for this zone
+; NS: authoritative nameservers for this zone
 @       IN  NS   ns1.nhr.local.
 
-; A — hostname to IPv4 address mappings
+; A: hostname to IPv4 address mappings
 ns1     IN  A    192.168.1.10
 client  IN  A    192.168.1.20
 www     IN  A    192.168.1.10
 mail    IN  A    192.168.1.30
 
-; CNAME — alias (ftp resolves to the same address as www)
+; CNAME: alias (ftp resolves to the same address as www)
 ftp     IN  CNAME www.nhr.local.
 
-; MX — mail exchangers for the domain (priority 10)
+; MX: mail exchangers for the domain (priority 10)
 @       IN  MX   10  mail.nhr.local.
 ```
 
@@ -346,7 +346,7 @@ sudo vi /var/named/dynamic/nhr.local.rev
 
 ```text
 ;
-; RHEL BIND — Reverse Lookup Zone File
+; RHEL BIND: Reverse Lookup Zone File
 ; File: /var/named/dynamic/nhr.local.rev
 ; Zone: 1.168.192.in-addr.arpa
 ; Requirements covered:
@@ -361,10 +361,10 @@ $TTL 86400
                 604800      ; Expire
                 86400 )     ; Minimum TTL
 
-; NS — authoritative nameservers for this zone
+; NS: authoritative nameservers for this zone
 @       IN  NS   ns1.nhr.local.
 
-; PTR — last octet of IPv4 address mapped to FQDN
+; PTR: last octet of IPv4 address mapped to FQDN
 10      IN  PTR  ns1.nhr.local.
 20      IN  PTR  client.nhr.local.
 30      IN  PTR  mail.nhr.local.
@@ -392,7 +392,7 @@ sudo chown root:named /etc/named.conf
 sudo chown -R root:named /var/named/dynamic/
 sudo chmod 770 /var/named/dynamic
 
-# Restrict file permissions — group-readable, world-inaccessible
+# Restrict file permissions: group-readable, world-inaccessible
 sudo chmod 640 /etc/named.conf
 sudo chmod 640 /var/named/dynamic/nhr.local.zone
 sudo chmod 640 /var/named/dynamic/nhr.local.rev
@@ -475,7 +475,7 @@ sudo vi /etc/resolv.conf
 
 ```text
 #
-# Client resolver configuration — /etc/resolv.conf
+# Client resolver configuration: /etc/resolv.conf
 # Points to ns1.nhr.local (192.168.1.10) for all queries
 #
 search nhr.local
@@ -546,7 +546,7 @@ In `/etc/named/named.conf.options`, the global default is to allow no transfers:
 
 ```text
 #
-# Global restriction — no zone transfers allowed by default
+# Global restriction: no zone transfers allowed by default
 # Override per-zone with an ACL if a slave/secondary server is required.
 #
 options {
@@ -583,7 +583,7 @@ This is configured in the global `options` block of `/etc/named/named.conf.optio
 
 ```text
 #
-# Forwarding — upstream public resolvers for external queries
+# Forwarding: upstream public resolvers for external queries
 # Recursion is permitted so internal clients can resolve any public name.
 # "forward only" prevents iterative fallback if the forwarders are unreachable.
 #
@@ -592,14 +592,14 @@ options {
     recursion yes;
 
     forwarders {
-        8.8.8.8;      # Google Public DNS — primary
-        8.8.4.4;      # Google Public DNS — secondary
+        8.8.8.8;      # Google Public DNS: primary
+        8.8.4.4;      # Google Public DNS: secondary
     };
     forward only;
 };
 ```
 
-> **Note — SERVFAIL on external queries:** Using `forward only` with `dnssec-validation yes` will break external resolution. BIND tries to validate the answer itself but can't fetch the DNSSEC chain from root servers because all queries are forwarded. Set `dnssec-validation no;` — Google's resolver already validates DNSSEC upstream. Local zone signing on `nhr.local` still works fine.
+> **Note: SERVFAIL on external queries:** Using `forward only` with `dnssec-validation yes` will break external resolution. BIND tries to validate the answer itself but can't fetch the DNSSEC chain from root servers because all queries are forwarded. Set `dnssec-validation no;` because Google's resolver already validates DNSSEC upstream. Local zone signing on `nhr.local` still works fine.
 
 ---
 
@@ -628,11 +628,11 @@ Generate the **Zone Signing Key (ZSK)** and **Key Signing Key (KSK)**. Use `-r /
 # Navigate to the keys directory
 cd /var/named/keys
 
-# Generate Zone Signing Key (ZSK) — used for signing individual RRsets
+# Generate Zone Signing Key (ZSK): used for signing individual RRsets
 # Use -r /dev/urandom if the command hangs waiting for entropy
 sudo dnssec-keygen -r /dev/urandom -a RSASHA256 -b 2048 -n ZONE nhr.local
 
-# Generate Key Signing Key (KSK) — used for signing the DNSKEY RRset
+# Generate Key Signing Key (KSK): used for signing the DNSKEY RRset
 sudo dnssec-keygen -r /dev/urandom -f KSK -a RSASHA256 -b 4096 -n ZONE nhr.local
 ```
 
@@ -650,7 +650,7 @@ The zone blocks in `/etc/named/named.conf.local` already reference the key direc
 
 ```text
 #
-# Zone auto-signing — BIND manages key rollover and signs
+# Zone auto-signing: BIND manages key rollover and signs
 # the zone on reload. No manual "rndc sign" is needed.
 #
 zone "nhr.local" IN {
@@ -753,7 +753,7 @@ In `/etc/named/named.conf.local`, define the key once at the top level, then all
 
 ```text
 #
-# TSIG key block — shared secret between DHCP and BIND
+# TSIG key block: shared secret between DHCP and BIND
 # Place this at the top level (outside any zone { } block)
 # The secret value comes from the .key file generated by dnssec-keygen
 #
@@ -762,14 +762,14 @@ key "dhcp-key" {
     secret "<extract-from-dhcp-key.+157.+...";
 };
 
-# Forward zone — permit updates authenticated by dhcp-key
+# Forward zone: permit updates authenticated by dhcp-key
 zone "nhr.local" IN {
     type master;
     file "dynamic/nhr.local.zone";
     allow-update { key dhcp-key; };
 };
 
-# Reverse zone — permit updates authenticated by dhcp-key
+# Reverse zone: permit updates authenticated by dhcp-key
 zone "1.168.192.in-addr.arpa" IN {
     type master;
     file "dynamic/nhr.local.rev";
@@ -783,7 +783,7 @@ Configure the DHCP service to push updates to the BIND server whenever leases ch
 
 ```text
 #
-# /etc/dhcp/dhcpd.conf — DDNS client configuration
+# /etc/dhcp/dhcpd.conf: DDNS client configuration
 # References the same TSIG key defined in named.conf.local
 #
 
@@ -791,7 +791,7 @@ ddns-update-style standard;
 update-static-leases on;
 authoritative;
 
-# Shared TSIG key — must match the BIND key block exactly
+# Shared TSIG key: must match the BIND key block exactly
 # Use the secret value from the generated .key file (found in dhcp-key.+157.+...)
 key "dhcp-key" {
     algorithm hmac-md5;
@@ -810,7 +810,7 @@ zone 1.168.192.in-addr.arpa. {
     key dhcp-key;
 }
 
-# Subnet — DHCP clients receive the BIND server as their DNS resolver
+# Subnet: DHCP clients receive the BIND server as their DNS resolver
 subnet 192.168.1.0 netmask 255.255.255.0 {
     range 192.168.1.50 192.168.1.100;
     option routers 192.168.1.1;
@@ -831,7 +831,7 @@ A backup strategy ensures fast recovery after hardware failure or human error. B
 # Create the automated backup script
 sudo tee /usr/local/sbin/dns-backup.sh > /dev/null << 'EOF'
 #!/bin/bash
-# RHEL BIND — Automated Backup Script
+# RHEL BIND: Automated Backup Script
 # Archives config, keys, and zone files to /backup/dns/
 
 BACKUP_DIR="/backup/dns"
@@ -1039,7 +1039,7 @@ Maintain cryptographic strength by rotating keys on a schedule:
 When `auto-dnssec maintain` and `inline-signing` are enabled, BIND automatically rotates keys when new ones are added.
 
 ```bash
-# Manual key rollover — generate a new ZSK
+# Manual key rollover: generate a new ZSK
 sudo dnssec-keygen -a RSASHA256 -b 2048 -n ZONE nhr.local
 
 # Load the new keys and re-sign the zone dynamically
@@ -1120,7 +1120,7 @@ Modify or add the following directives inside the `server:` clause:
 
 ```text
 #
-# RHEL Unbound — Caching DNS Resolver Configuration
+# RHEL Unbound: Caching DNS Resolver Configuration
 # File: /etc/unbound/unbound.conf
 # Server: cache1.nhr.local (192.168.1.11)
 # Requirements covered:
@@ -1131,36 +1131,36 @@ Modify or add the following directives inside the `server:` clause:
 #
 
 server:
-    # Server Setup — Listen on all interfaces (0.0.0.0)
+    # Server Setup: Listen on all interfaces (0.0.0.0)
     interface: 0.0.0.0
 
-    # Security — Access Controls
+    # Security: Access Controls
     # Allow queries only from localhost (127.0.0.0/8) and the internal
     # subnet (192.168.1.0/24). Refuse all other sources.
     access-control: 127.0.0.0/8 allow
     access-control: 192.168.1.0/24 allow
     access-control: 0.0.0.0/0 refuse
 
-    # Security — Hide server identity and version from clients
+    # Security: Hide server identity and version from clients
     hide-identity: yes
     hide-version: yes
 
-    # Server Setup — Protocol and daemon behaviour
+    # Server Setup: Protocol and daemon behaviour
     do-daemonize: yes
     do-ip4: yes
     do-ip6: no
 
-    # Performance — Prefetch popular records before TTL expiry
+    # Performance: Prefetch popular records before TTL expiry
     prefetch: yes
 
-    # Logging — Verbosity levels (0=minimal, 1=operational, 2=detail)
+    # Logging: Verbosity levels (0=minimal, 1=operational, 2=detail)
     verbosity: 1
 
-    # Root Hints — file containing the 13 DNS root server IPs
+    # Root Hints: file containing the 13 DNS root server IPs
     # On RHEL 7 this is installed by the bind-libs package.
     root-hints: "/var/named/named.ca"
 
-    # DNSSEC — auto-managed root trust anchor (RFC 5011)
+    # DNSSEC: auto-managed root trust anchor (RFC 5011)
     auto-trust-anchor-file: "/var/lib/unbound/root.key"
 ```
 
@@ -1207,7 +1207,7 @@ Unbound configuration files must be owned by the `unbound` group and possess the
 # Set group ownership so the unbound daemon can read configs
 sudo chown -R root:unbound /etc/unbound/
 
-# Restrict permissions — only root can write, unbound group can read
+# Restrict permissions: only root can write, unbound group can read
 sudo chmod 640 /etc/unbound/unbound.conf
 ```
 
@@ -1277,7 +1277,7 @@ sudo vi /etc/resolv.conf
 
 ```text
 #
-# Client resolver configuration — /etc/resolv.conf
+# Client resolver configuration: /etc/resolv.conf
 # Points to cache1.nhr.local (192.168.1.11) for all queries
 #
 search nhr.local
@@ -1313,7 +1313,7 @@ dig @192.168.1.11 ns1.nhr.local
 | `qr` | Query Response |
 | `rd` | Recursion Desired (set by client) |
 | `ra` | Recursion Available (set by server) |
-| `ad` | **Authentic Data** — DNSSEC validation passed ✓ |
+| `ad` | **Authentic Data** (DNSSEC validation passed) |
 
 > [!IMPORTANT]
 > The presence of the `ad` (Authentic Data) flag in the `dig` response confirms that Unbound has successfully validated the DNSSEC chain of trust for the answer.

@@ -38,8 +38,8 @@ Two open-source packages build the complete mail service stack:
 
 | Component    | Software    | Role                                                                                    |
 | ------------ | ----------- | --------------------------------------------------------------------------------------- |
-| **MTA**      | **Postfix** | Mail Transfer Agent — handles incoming (SMTP) and outgoing (SMTP relay) mail            |
-| **MDA/IMAP** | **Dovecot** | Mail Delivery Agent + IMAP/POP3 server — delivers mail to mailboxes and serves clients  |
+| **MTA**      | **Postfix** | Mail Transfer Agent, handling incoming (SMTP) and outgoing (SMTP relay) mail            |
+| **MDA/IMAP** | **Dovecot** | Mail Delivery Agent + IMAP/POP3 server, delivering mail to mailboxes and serving clients  |
 
 Postfix is the standard MTA on RHEL. It has a modular security design where each component runs in a chroot jail with minimal privileges, and it has native support for SASL authentication and TLS/SSL encryption. It also integrates cleanly with SpamAssassin and Dovecot via Unix sockets.
 
@@ -95,8 +95,8 @@ sudo systemctl status dovecot
 
 Postfix configuration lives in two main files under `/etc/postfix/`:
 
-- `/etc/postfix/main.cf` — primary configuration parameters (global settings)
-- `/etc/postfix/master.cf` — defines the daemons and services Postfix runs
+- `/etc/postfix/main.cf`: primary configuration parameters (global settings)
+- `/etc/postfix/master.cf`: defines the daemons and services Postfix runs
 
 ### 4.1 Main Configuration File: `/etc/postfix/main.cf`
 
@@ -288,7 +288,7 @@ sudo vi /etc/aliases
 ```
 
 ```text
-# /etc/aliases — forward root's mail to the admin user
+# /etc/aliases: forward root's mail to the admin user
 root:   nazmul
 ```
 
@@ -424,7 +424,7 @@ Change it to:
 ```
 
 > [!NOTE]
-> Do **not** add a second `service auth { }` block — one already exists. Only edit inside the existing block. `mode = 0660` (not `0666`) restricts access to the `postfix` group only, which is more secure.
+> Do **not** add a second `service auth { }` block; one already exists. Only edit inside the existing block. `mode = 0660` (not `0666`) restricts access to the `postfix` group only, which is more secure.
 
 ### 5.6 Restart Dovecot
 
@@ -558,7 +558,7 @@ bayes_auto_learn 1
 
 Connecting SpamAssassin to Postfix requires five steps: enabling the content filter in `main.cf`, creating the dedicated `spamd` OS user, fixing TLS certificate permissions, adding the transport and pickup override in `master.cf`, and restarting Postfix.
 
-#### Step 1 — Enable the Content Filter in `/etc/postfix/main.cf`
+#### Step 1: Enable the Content Filter in `/etc/postfix/main.cf`
 
 Add the following line to route all inbound SMTP mail through SpamAssassin before final delivery:
 
@@ -571,7 +571,7 @@ sudo vi /etc/postfix/main.cf
 content_filter = spamassassin
 ```
 
-#### Step 2 — Create the `spamd` OS User
+#### Step 2: Create the `spamd` OS User
 
 The `spamassassin` transport in `master.cf` runs as OS user `spamd`, but this user is **not created automatically** by the RHEL 7 package. Without it, every delivery attempt fails with:
 
@@ -588,7 +588,7 @@ sudo mkdir -p /var/lib/spamassassin
 sudo chown spamd:spamd /var/lib/spamassassin
 ```
 
-#### Step 3 — Fix TLS Certificate Permissions
+#### Step 3: Fix TLS Certificate Permissions
 
 Postfix reads the TLS certificate and private key at startup. If the key is not readable by the `postfix` group, STARTTLS is silently disabled and the following errors appear in `/var/log/maillog`:
 
@@ -608,7 +608,7 @@ sudo chown root:postfix /etc/pki/dovecot/private/mail.nhr.local.key
 sudo chmod 640 /etc/pki/dovecot/private/mail.nhr.local.key
 ```
 
-#### Step 4 — Verify `master.cf` Contains the Transport and Pickup Override
+#### Step 4: Verify `master.cf` Contains the Transport and Pickup Override
 
 The `spamassassin` transport and the `pickup` override were already added in §4.3. Confirm they are present:
 
@@ -629,7 +629,7 @@ spamassassin unix  -       n       n       -       -       pipe
 
 The `pickup` override prevents the infinite re-injection loop: when SpamAssassin finishes scanning and re-submits the message via `/usr/sbin/sendmail`, the pickup daemon delivers it directly without triggering `content_filter` a second time.
 
-#### Step 5 — Restart Postfix
+#### Step 5: Restart Postfix
 
 ```bash
 # Check configuration for syntax errors first
@@ -888,7 +888,7 @@ Key observations from the output:
 | `a OK Logout completed`             | IMAP session closed cleanly              | Success |
 
 > [!NOTE]
-> The `verify error:num=18` (self-signed certificate) warning is suppressed here by `2>/dev/null`. It's expected in a lab environment — in production, a certificate from a trusted CA such as Let's Encrypt would eliminate it entirely.
+> The `verify error:num=18` (self-signed certificate) warning is suppressed here by `2>/dev/null`. It's expected in a lab environment; in production, a certificate from a trusted CA such as Let's Encrypt would eliminate it entirely.
 
 ### 9.5 Configure a Mail Client (Thunderbird)
 
@@ -921,12 +921,12 @@ sudo chown -R mailuser2:mailuser2 /home/mailuser2/Maildir
 
 #### Step-by-Step: Add an Account in Thunderbird
 
-**Step 1 — Launch Thunderbird**
+**Step 1: Launch Thunderbird**
 
 Open Thunderbird. On first launch it shows the account setup wizard. If already open, go to:
 `Menu → Account Settings → Account Actions → Add Mail Account…`
 
-**Step 2 — Enter Account Details**
+**Step 2: Enter Account Details**
 
 In the *Your Name*, *Email Address*, and *Password* fields, enter:
 
@@ -936,9 +936,9 @@ In the *Your Name*, *Email Address*, and *Password* fields, enter:
 | Email Address | `mailuser1@nhr.local`        |
 | Password      | *(password set with passwd)* |
 
-Click **Continue**. Thunderbird will attempt auto-discovery — it will fail for a private domain, which is expected.
+Click **Continue**. Thunderbird will attempt auto-discovery; it will fail for a private domain, which is expected.
 
-**Step 3 — Enter Server Settings Manually**
+**Step 3: Enter Server Settings Manually**
 
 Click **Configure Manually** and fill in the following:
 
@@ -950,11 +950,11 @@ Click **Configure Manually** and fill in the following:
 - **Incoming Username**: `mailuser1`
 - **Outgoing Username**: `mailuser1`
 
-**Step 4 — Accept the Self-Signed Certificate**
+**Step 4: Accept the Self-Signed Certificate**
 
 Since this lab uses a self-signed certificate, Thunderbird will show a security warning. Click **Confirm Security Exception** to proceed.
 
-**Step 5 — Done**
+**Step 5: Done**
 
 Click **Done**. Thunderbird will connect and display `mailuser1`'s inbox.
 
@@ -973,7 +973,7 @@ Repeat the process to add a second account for `mailuser2@nhr.local` to test mai
 #### Verify Mail Exchange
 
 1. In Thunderbird, compose a new message **from** `mailuser1@nhr.local` **to** `mailuser2@nhr.local` and send it.
-2. Switch to the `mailuser2` account — the message should appear in the Inbox.
+2. Switch to the `mailuser2` account; the message should appear in the Inbox.
 3. Reply from `mailuser2` back to `mailuser1` and confirm delivery in the other inbox.
 
 On the server side, confirm delivery in the mail log:
