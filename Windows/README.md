@@ -2,7 +2,7 @@
 
 This section contains labs for both Windows Client (Windows 11) and Windows Server environments.
 
-## 🖥️ Windows 11 Client Labs
+## Windows 11 Client Labs
 
 Practical, screenshot-guided instructions for Windows 11 system customization and productivity.
 
@@ -10,8 +10,8 @@ Practical, screenshot-guided instructions for Windows 11 system customization an
 
 ---
 
-## 🗄️ Windows Server Labs
+## Windows Server Labs
 
-🚧 **Coming Soon**
+**Coming Soon**
 
 This section will contain labs for Windows Server administration, Active Directory, DNS/DHCP, and PowerShell networking.
